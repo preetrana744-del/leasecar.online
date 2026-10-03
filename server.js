@@ -199,6 +199,7 @@ async function handleApi(req, res, url) {
     const email = safeString(body.email, 120).toLowerCase(); const password = String(body.password || '');
     const admin = db.prepare('SELECT id,email,password_hash FROM admins WHERE email=?').get(email);
     if (!admin || !verifyPassword(password, admin.password_hash)) return json(res, 401, { error: 'Invalid email or password' });
+    loginAttempts.delete(ip);
     const rawToken = crypto.randomBytes(32).toString('base64url'); const csrf = crypto.randomBytes(24).toString('base64url');
     const expires = Date.now() + sessionDays * 86400000;
     db.prepare('INSERT INTO sessions (token_hash,admin_id,csrf_token,expires_at) VALUES (?,?,?,?)').run(sha256(rawToken), admin.id, csrf, expires);
@@ -247,7 +248,7 @@ async function handleApi(req, res, url) {
     const car = db.prepare('SELECT image_url FROM cars WHERE id=?').get(id); if (!car) return json(res, 404, { error: 'Car not found' });
     const fileName = `car-${id}-${Date.now()}-${crypto.randomBytes(5).toString('hex')}.${ext}`; const diskPath = path.join(uploadsDir, fileName); fs.writeFileSync(diskPath, buffer);
     const newUrl = `/uploads/${fileName}`; db.prepare('UPDATE cars SET image_url=?,updated_at=CURRENT_TIMESTAMP WHERE id=?').run(newUrl,id);
-    if (car.image_url?.startsWith('/uploads/')) { const old = path.join(publicDir, car.image_url); try { if (fs.existsSync(old)) fs.unlinkSync(old); } catch {} }
+    if (car.image_url?.startsWith('/uploads/')) { const old = path.join(uploadsDir, path.basename(car.image_url)); try { if (fs.existsSync(old)) fs.unlinkSync(old); } catch {} }
     return json(res, 200, { ok: true, imageUrl: newUrl });
   }
   const bookingMatch = url.pathname.match(/^\/api\/admin\/bookings\/(\d+)$/);
@@ -262,10 +263,15 @@ async function handleApi(req, res, url) {
 }
 
 function serveFile(req, res, pathname) {
+  let baseDir = publicDir;
   let rel = pathname === '/' ? '/index.html' : pathname === '/admin' ? '/admin.html' : pathname;
+  if (pathname.startsWith('/uploads/')) {
+    baseDir = uploadsDir;
+    rel = pathname.slice('/uploads'.length);
+  }
   try { rel = decodeURIComponent(rel); } catch { return text(res, 400, 'Bad request'); }
-  const target = path.normalize(path.join(publicDir, rel));
-  const relative = path.relative(publicDir, target);
+  const target = path.normalize(path.join(baseDir, rel));
+  const relative = path.relative(baseDir, target);
   if (relative.startsWith('..') || path.isAbsolute(relative)) return text(res, 403, 'Forbidden');
   if (!fs.existsSync(target) || fs.statSync(target).isDirectory()) return text(res, 404, 'Not found');
   securityHeaders(res); res.statusCode = 200; res.setHeader('Content-Type', MIME[path.extname(target).toLowerCase()] || 'application/octet-stream');
