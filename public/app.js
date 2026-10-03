@@ -1,6 +1,7 @@
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const money = n => new Intl.NumberFormat('en-IN').format(n);
+const localIsoDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const grid = $('#fleetGrid');
 const dialog = $('#bookingDialog');
 let fleet = [];
@@ -47,7 +48,7 @@ function initScrollReveal(){
 function openBooking(id){
   const car=fleet.find(c=>c.id===id); if(!car)return;
   $('#bookingCarId').value=id; $('#bookingCar').textContent=car.name; $('#bookingRate').textContent=`Current rate: ₹${money(car.daily_price)} per day`;
-  const today=new Date(); const iso=today.toISOString().slice(0,10); $('#startDate').min=iso; $('#endDate').min=iso; $('#bookingStatus').textContent=''; dialog.showModal();
+  const today=new Date(); const iso=localIsoDate(today); $('#startDate').min=iso; $('#endDate').min=iso; $('#bookingStatus').textContent=''; dialog.showModal();
 }
 $('#closeBooking').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
