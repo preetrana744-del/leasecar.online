@@ -1,0 +1,6 @@
+.env
+data/leasecar.db
+data/leasecar.db-*
+public/uploads/*
+!public/uploads/.gitkeep
+.DS_Store
