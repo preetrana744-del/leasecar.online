@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="theme-color" content="#07090d"/>
-<title>LeaseCar.online — Preview</title>
+<title>LeaseCar.online — Premium Car Rental Preview</title>
 <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
@@ -12,7 +12,7 @@
 <header class="nav glass">
   <a class="brand" href="#top"><span class="brand-glyph">L</span><span>LeaseCar.online</span></a>
   <nav><a href="#fleet">Fleet</a><a href="#experience">Experience</a><a href="#how">How it works</a></nav>
-  <a class="admin-btn" href="#owner"><span>Owner Login</span><b>↗</b></a>
+  <button class="admin-btn" id="ownerPreviewBtn" type="button"><span>Owner Login</span><b>↗</b></button>
 </header>
 
 <main id="top">
@@ -48,6 +48,14 @@
   <div class="steps"><article><b>01</b><h3>Choose</h3><p>Select one of the six LeaseCar.online vehicles.</p></article><article><b>02</b><h3>Verify</h3><p>Complete the customer verification flow and submit your rental request.</p></article><article><b>03</b><h3>Approve</h3><p>The owner reviews the request and confirms the rental manually.</p></article></div>
 </section>
 </main>
+
+<dialog id="ownerPreviewDialog" class="booking-dialog">
+  <button class="dialog-close" id="ownerPreviewClose" aria-label="Close">×</button>
+  <div class="dialog-tag">OWNER PORTAL</div>
+  <h2>Backend deployment required.</h2>
+  <p>This GitHub Pages build is the public visual preview. The secure owner dashboard, database and document workflows run on the Node.js server deployment.</p>
+  <a class="primary" href="#fleet" onclick="document.getElementById('ownerPreviewDialog').close()">Back to fleet →</a>
+</dialog>
 
 <footer><a class="brand" href="#top"><span class="brand-glyph">L</span><span>LeaseCar.online</span></a><p>Drive beyond ordinary.</p><span>Preview build</span></footer>
 
