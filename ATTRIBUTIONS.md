@@ -1,9 +1,10 @@
-# Seed photo attributions
+# Vehicle image attributions
 
-These are starter/demo images only. The admin dashboard can replace every image without code changes.
+The current landing-page gallery uses recent-generation vehicle images served from Wikimedia Commons. They are visual starter assets, not a statement of the physical rental inventory. Confirm the actual fleet, daily rates and each image's licence before commercial launch; replace images from the owner dashboard when you have your own fleet photography.
 
-- Toyota Fortuner — Wikimedia Commons, “Toyota Fortuner Full.jpg”, CC license on source page.
-- Toyota Innova Crysta — Wikimedia Commons, “Toyota Innova Crysta 2.4 Z front right.jpg”, source license on Commons.
-- Mahindra Thar — Wikimedia Commons, Ank Kumar, cropped “Mahindra Thar SUV in Red Rage…”, CC BY-SA 4.0.
-- Maruti Suzuki Dzire — Wikimedia Commons, “Suzuki Dzire 2024 ZXI+.jpg”, CC BY-SA.
-- Mahindra Scorpio seed imagery — Wikimedia Commons files for Mahindra Scorpio / Scorpio S11. Replace the Scorpio N seed with an owned/licensed Scorpio N photo before commercial launch.
+- Mahindra Thar Roxx — Wikimedia Commons, “Mahindra Thar ROXX on dirt.jpg”.
+- Toyota Fortuner Legender — Wikimedia Commons, “Toyota Fortuner 4x4 Legender (LTD) 2-Tone White Pearl-Black.jpg”.
+- Toyota Innova Hycross — Wikimedia Commons, “Toyota Zenix 2.0 Q HEV 2023.jpg”.
+- Maruti Suzuki Dzire — Wikimedia Commons, “Suzuki Dzire 2024 ZXI+.jpg”.
+- Hyundai Creta — Wikimedia Commons, “2024 Hyundai Creta Alpha.jpg”.
+- Tata Curvv EV — Wikimedia Commons, “Tata Curvv.EV.jpg”.
